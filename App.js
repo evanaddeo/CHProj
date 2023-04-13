@@ -1,20 +1,13 @@
-import React from 'react';
+import * as React from 'react';
 import Homepage from "./components/Homepage";
 import ActivityMonitor from "./components/ActivityMonitor";
 import CustomPlan from "./components/CustomPlan";
 import FriendsPage from "./components/FriendsPage";
-import { StyleSheet, Text, View } from 'react-native';
+import Profile from "./components/Profile";
+import { StyleSheet} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-
-const ProfileScreen = () => {
-    return(
-        <View style={styles.container}>
-            <Text style={styles.text}>ProfileScreen</Text>
-        </View>
-    );
-}
 
 const Tab = createBottomTabNavigator();
 
@@ -66,7 +59,7 @@ const App = () => {
                 />
                 <Tab.Screen 
                     name='Profile'
-                    component={ProfileScreen} 
+                    component={Profile} 
                     options={{ 
                         tabBarIcon: ({ color, size }) => (
                             <Icon name="cogs" color={color} size={size} />
