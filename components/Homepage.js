@@ -2,6 +2,7 @@ import React, { useState} from "react"
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableHighlight, Alert } from 'react-native';
 import { LinearGradient } from "expo-linear-gradient";
+// import { useNavigation } from '@react-navigation/native';
 
 export default function Homepage() {
 
@@ -12,13 +13,20 @@ export default function Homepage() {
         style={styles.grad}
         start={{ x: 0.9, y: 0 }}
       >
-        <TouchableHighlight style={[styles.button, { flex: 1.5}]} 
+        <TouchableHighlight style={[styles.welcome, { flex: 1.1}]} 
                           activeOpacity={0.005} 
                           underlayColor={"rgba(255,255,255,.005)"} 
                           onPress={() => alert('Redirect')}>
-          <Text style={[styles.btnText, 
-                        {fontSize: 80},
-                        {fontWeight: "bold"}]}>Welcome{'\n'}Evan!</Text>
+          <>
+            <Text style={[styles.btnText, 
+                        {fontSize: 30},
+                        {textAlign: "left"},
+                        {fontWeight: "bold"}]}>Welcome</Text>
+            <Text style={[styles.btnText, 
+                        {fontSize: 100},
+                        {textAlign: "left"},
+                        {fontWeight: "bold"}]}>Evan</Text>
+          </>
         </TouchableHighlight>
 
         <TouchableHighlight style={styles.button} 
@@ -83,6 +91,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#f9ded2',
     alignItems: 'center',
     justifyContent: 'space-evenly'
+  },
+  welcome: {
+    flex: .2,
+    fontSize: 30,
+    borderRadius: 20,
+    marginHorizontal: 7,
+    marginVertical: 7,
+    padding: 10,
+    alignSelf: "stretch",
+    backgroundColor: "transparent",
+    fontWeight: 600,
+    justifyContent: "center"
   },
   row: {
     flex: 1,
