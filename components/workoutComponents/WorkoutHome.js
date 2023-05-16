@@ -1,8 +1,8 @@
 import React from "react"
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import { LinearGradient } from "expo-linear-gradient";
 
-export default function CustomPlan() {
+const WorkoutHome = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <LinearGradient
@@ -10,7 +10,17 @@ export default function CustomPlan() {
                 style={styles.grad}
                 start={{ x: 0.9, y: 0 }}
             >
-                <Text style={styles.text}>Your plan</Text>
+                <View>
+                    <View>
+                        <Text>Discover new workouts</Text>
+                    </View>
+                    <View>
+                        <Text>Create custom workout</Text>
+                    </View>
+                    <View>
+                        <Text>View Activity</Text>
+                    </View>
+                </View>
             </LinearGradient>
         </View>
     );
@@ -33,3 +43,5 @@ const styles = StyleSheet.create({
         alignSelf: "stretch"
     }
 });
+
+export default WorkoutHome;

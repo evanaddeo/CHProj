@@ -1,8 +1,8 @@
 import React from "react"
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import { LinearGradient } from "expo-linear-gradient";
 
-const FriendsPage = ({ navigation }) => {
+const Login = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <LinearGradient
@@ -10,7 +10,10 @@ const FriendsPage = ({ navigation }) => {
                 style={styles.grad}
                 start={{ x: 0.9, y: 0 }}
             >
-                <Text style={styles.text}>Friends</Text>
+                <Button title="Home"
+                    onPress={() => 
+                        this.props.navigate("Home")
+                    }>Friends</Button>
             </LinearGradient>
         </View>
     );
@@ -35,4 +38,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default FriendsPage;
+export default Login;

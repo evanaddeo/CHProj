@@ -2,7 +2,7 @@ import React from "react"
 import { View, Text, StyleSheet } from 'react-native';
 import { LinearGradient } from "expo-linear-gradient";
 
-const FriendsPage = ({ navigation }) => {
+const Signup = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <LinearGradient
@@ -35,4 +35,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default FriendsPage;
+export default Signup;

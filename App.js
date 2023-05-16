@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Homepage from "./components/Homepage";
 import ActivityMonitor from "./components/ActivityMonitor";
-import CustomPlan from "./components/CustomPlan";
+import Workout from "./components/Workout";
 import FriendsPage from "./components/FriendsPage";
 import Profile from "./components/Profile";
 import { StyleSheet} from 'react-native';
@@ -31,8 +31,8 @@ const App = () => {
                     }}
                 />
                 <Tab.Screen 
-                    name='Plan' 
-                    component={CustomPlan}
+                    name='Workout' 
+                    component={Workout}
                     options={{ 
                         tabBarIcon: ({ color, size }) => (
                             <Icon name="dumbbell" color={color} size={size} />
