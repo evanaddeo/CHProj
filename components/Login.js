@@ -1,41 +1,267 @@
-import React from "react"
-import { View, Text, StyleSheet, Button } from 'react-native';
-import { LinearGradient } from "expo-linear-gradient";
+import React, { useState } from 'react';
+import {
+  StyleSheet,
+  SafeAreaView,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const Login = ({ navigation }) => {
-    return (
-        <View style={styles.container}>
-            <LinearGradient
-                colors={['black', 'rgb(89, 97, 249)', 'rgb(7, 13, 117)']}
-                style={styles.grad}
-                start={{ x: 0.9, y: 0 }}
-            >
-                <Button title="Home"
-                    onPress={() => 
-                        this.props.navigate("Home")
-                    }>Friends</Button>
-            </LinearGradient>
+const INPUT_OFFSET = 110;
+
+export default function Login({navigation}) {
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+  });
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#e8ecf4' }}>
+      <View style={styles.container}>
+        <View style={styles.topBanner}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Signup");
+            }}>
+            <View style={[styles.top,
+               {backgroundColor: "transparent"},
+               {borderWidth: 0}]}>
+               <Text style={[styles.topText, {color: "black"}]}>Sign Up</Text>
+            </View>
+         </TouchableOpacity>
+         <TouchableOpacity>
+            <View style={styles.top}>
+               <Text style={styles.topText}>Log In</Text>
+            </View>
+         </TouchableOpacity>
         </View>
-    );
+
+        <View style={styles.header}>
+          <View style={styles.headerIcon}>
+            <FeatherIcon color="#075eec" name="lock" size={44} />
+          </View>
+
+          <Text style={styles.title}> Welcome Back! </Text>
+
+          <Text style={styles.subtitle}>
+            <Text style={[styles.dawgBite, { color: '#0742fc' }]}>DawgByte Fitness</Text>
+            <Text>{"  |  "}</Text>
+            Get in shape with your friends</Text>
+        </View>
+
+        <View style={styles.form}>
+
+          <View style={styles.input}>
+            <Text style={styles.inputLabel}>Email address</Text>
+
+            <TextInput
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyboardType="email-address"
+              onChangeText={email => setForm({ ...form, email })}
+              placeholder=""
+              placeholderTextColor="#6b7280"
+              style={styles.inputControl}
+              value={form.email}
+            />
+          </View>
+
+          <View style={styles.input}>
+            <Text style={styles.inputLabel}>Password</Text>
+
+            <TextInput
+              autoCorrect={false}
+              onChangeText={password => setForm({ ...form, password })}
+              placeholder=""
+              placeholderTextColor="#6b7280"
+              style={styles.inputControl}
+              secureTextEntry={true}
+              value={form.password}
+            />
+          </View>
+
+          <View style={styles.formAction}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Main");
+              }}>
+              <View style={styles.btn}>
+                <Text style={styles.btnText}>Log In</Text>
+              </View>
+            </TouchableOpacity>
+
+            <View style={styles.formActionSpacer} />
+
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Signup");
+              }}>
+              <View style={styles.login}>
+                <Text style={[{marginLeft: 10}, 
+                              {textDecorationLine: "underline"}]}>
+                I don't have an account yet</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+
+          <Text style={styles.formFooter}>
+            By clicking "Sign in" above, you agree to DawgByte Fitness's
+            <Text style={{ fontWeight: '600' }}> Terms & Conditions </Text>
+            and
+            <Text style={{ fontWeight: '600' }}> Privacy Policy</Text>.
+          </Text>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        display: "flex",
-        justifyContent:'center',
-        alignItems:'center',
-        backgroundColor: "red"
-    },
-    text: {
-        fontSize:20
-    },
-    grad: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        alignSelf: "stretch"
-    }
+  container: {
+    padding: 24,
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: 0,
+  },
+  header: {
+    marginVertical: 36,
+  },
+  headerIcon: {
+    alignSelf: 'center',
+    width: 80,
+    height: 80,
+    marginBottom: 26,
+    backgroundColor: '#fff',
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 50,
+    fontWeight: '700',
+    color: '#1d1d1d',
+    marginBottom: 6,
+    textAlign: 'center',
+  },
+  dawgBite: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: '#1d1d1d',
+    marginBottom: 6,
+    textAlign: 'center',
+  },
+  subtitle: {
+    fontSize: 15,
+    fontWeight: '500',
+    color: '#929292',
+    textAlign: 'center',
+    marginTop: 10
+  },
+  form: {
+    marginBottom: 24,
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: 0,
+  },
+  formAction: {
+    marginVertical: 24,
+  },
+  formActionSpacer: {
+    marginVertical: 8,
+  },
+  formFooter: {
+    marginTop: 'auto',
+    fontSize: 14,
+    lineHeight: 20,
+    fontWeight: '400',
+    color: '#929292',
+    textAlign: 'center',
+  },
+  input: {
+    marginBottom: 16,
+  },
+  inputControl: {
+    height: 44,
+    backgroundColor: '#fff',
+    paddingLeft: INPUT_OFFSET,
+    paddingRight: 24,
+    borderRadius: 12,
+    fontSize: 15,
+    fontWeight: '500',
+    color: '#222',
+  },
+  inputLabel: {
+    position: 'absolute',
+    width: INPUT_OFFSET,
+    lineHeight: 44,
+    top: 0,
+    left: 0,
+    bottom: 0,
+    marginHorizontal: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 13,
+    fontWeight: '500',
+    color: '#c0c0c0',
+    zIndex: 9,
+  },
+  btn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderWidth: 1,
+    backgroundColor: '#000',
+    borderColor: '#000',
+  },
+  btnText: {
+    fontSize: 18,
+    lineHeight: 26,
+    fontWeight: '600',
+    color: '#fff',
+  },
+  btnSecondary: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderWidth: 1,
+    backgroundColor: 'transparent',
+    borderColor: '#000',
+  },
+  btnSecondaryText: {
+    fontSize: 18,
+    lineHeight: 26,
+    fontWeight: '600',
+    color: '#000',
+  },
+  loginText: {
+    fontSize: 15,
+    color: '#0742fc'
+  },
+  topBanner: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
+  top: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 50,
+    paddingVertical: 13,
+    paddingHorizontal: 20,
+    borderWidth: 1,
+    backgroundColor: '#000',
+    borderColor: '#000',
+  },
+  topText: {
+    color: "white",
+    fontSize: 18
+  },
 });
-
-export default Login;

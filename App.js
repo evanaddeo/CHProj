@@ -4,17 +4,20 @@ import ActivityMonitor from "./components/ActivityMonitor";
 import Workout from "./components/Workout";
 import FriendsPage from "./components/FriendsPage";
 import Profile from "./components/Profile";
+import Login from './components/Login';
+import Signup from './components/Signup';
 import { StyleSheet} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
-const App = () => {
+function Main() {
     return (
-        <NavigationContainer>
-            <Tab.Navigator
+        <Tab.Navigator
             screenOptions={{
               headerShown: false,
               tabBarActiveTintColor: 'rgb(91, 97, 217)',
@@ -67,6 +70,29 @@ const App = () => {
                     }}
                 />
             </Tab.Navigator>
+    );
+}
+
+const App = () => {
+    return (
+        <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen
+                    name="Signup"
+                    component={ Signup }
+                    options={{headerShown: false}}
+                />
+                <Stack.Screen
+                    name="Login"
+                    component={ Login }
+                    options={{headerShown: false}}
+                />
+                <Stack.Screen
+                    name="Main"
+                    component={ Main }
+                    options={{headerShown: false}}
+                />
+            </Stack.Navigator>
         </NavigationContainer>
     );
 }
