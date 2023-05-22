@@ -19,26 +19,28 @@ function Main() {
     return (
         <Tab.Navigator
             screenOptions={{
+              tabBarShowLabel: false,
               headerShown: false,
-              tabBarActiveTintColor: 'rgb(91, 97, 217)',
+              tabBarActiveTintColor: '#0742fc',
               tabBarInactiveTintColor: 'white',
-              tabBarStyle: {backgroundColor: "rgb(17, 19, 66)", borderTopWidth: 0}
+              tabBarStyle: {
+                backgroundColor: "rgb(184, 185, 186)", 
+                borderTopWidth: 0,
+                margin: 13,
+                marginHorizontal: 15,
+                borderRadius: 30,
+                bottom: 15,
+                paddingBottom: 0,
+                height: 50,
+                position: "absolute"
+                }
             }}>
                 <Tab.Screen 
                     name='Home' 
                     component={Homepage}
                     options={{ 
                         tabBarIcon: ({ color, size }) => (
-                            <Icon name="home" color={color} size={size} />
-                        ),
-                    }}
-                />
-                <Tab.Screen 
-                    name='Workout' 
-                    component={Workout}
-                    options={{ 
-                        tabBarIcon: ({ color, size }) => (
-                            <Icon name="dumbbell" color={color} size={size} />
+                            <Icon name="home" color={color} size={size}/>
                         ),
                     }}
                 />
@@ -48,6 +50,15 @@ function Main() {
                     options={{ 
                         tabBarIcon: ({ color, size }) => (
                             <Icon name="chart-bar" color={color} size={size} />
+                        ),
+                    }}
+                />
+                <Tab.Screen 
+                    name='Workout' 
+                    component={Workout}
+                    options={{ 
+                        tabBarIcon: ({ color, size }) => (
+                            <Icon name="plus" color={color} size={40}/>
                         ),
                     }}
                 />
@@ -106,7 +117,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize:20,
-    },
+    }
 });
 
 
