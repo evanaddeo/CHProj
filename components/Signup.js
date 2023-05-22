@@ -13,10 +13,14 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 const INPUT_OFFSET = 110;
 
 export default function Signup({navigation}) {
+
   const [form, setForm] = useState({
     email: '',
     password: '',
+    firstname: '',
+    lastname: '',
   });
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#e8ecf4' }}>
       <View style={styles.container}>
@@ -57,11 +61,11 @@ export default function Signup({navigation}) {
             <TextInput
               autoCapitalize="none"
               autoCorrect={false}
-              onChangeText={email => setForm({ ...form, email })}
+              onChangeText={firstname => setForm({ ...form, firstname })}
               placeholder=""
               placeholderTextColor="#6b7280"
               style={styles.inputControl}
-              value={form.email}
+              value={form.firstname}
             />
           </View>
 
@@ -71,11 +75,11 @@ export default function Signup({navigation}) {
             <TextInput
               autoCapitalize="none"
               autoCorrect={false}
-              onChangeText={email => setForm({ ...form, email })}
+              onChangeText={lastname => setForm({ ...form, lastname })}
               placeholder=""
               placeholderTextColor="#6b7280"
               style={styles.inputControl}
-              value={form.email}
+              value={form.lastname}
             />
           </View>
 
