@@ -1,24 +1,16 @@
-import firebase from "firebase/app";
-import {initializeApp} from "firebase/app"
-import { getAnalytics } from "firebase/analytics";
-import 'firebase/database';
-
-// SDKs for Firebase products to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp } from "firebase/app";
+import 'firebase/auth';
+import Constants from 'expo-constants';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDN9C2RQqXjBWV4lldd8OkVQ_X_CWeqPDM",
-  authDomain: "dawgbytes-84378.firebaseapp.com",
-  projectId: "dawgbytes-84378",
-  storageBucket: "dawgbytes-84378.appspot.com",
-  messagingSenderId: "718148906953",
-  appId: "1:718148906953:web:f07bd1a1d12d2da1d40218",
-  measurementId: "G-MW95YGDP5M"             // measurementId is optional
+  apiKey: "AIzaSyDcQzj931Uj6v2cfNAgq0WaVHITyfuZXYA",
+  authDomain: Constants.manifest?.extra?.firebaseAuthDomain,
+  projectId: Constants.manifest?.extra?.firebaseProjectId,
+  storageBucket: Constants.manifest?.extra?.firebaseStorageBucket,
+  messagingSenderId: Constants.manifest?.extra?.firebaseMessagingSenderId,
+  appId: Constants.manifest?.extra?.firebaseAppId,
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);  
-
-export default firebase;
-
+export default app;

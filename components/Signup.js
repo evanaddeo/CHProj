@@ -9,9 +9,12 @@ import {
   Animated
 } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import firebase from "../firebase";
 import UserService from "../UserService";
 
 const INPUT_OFFSET = 110;
+const auth = getAuth();
 
 /**
  * First page loaded for user upon opening app, allows signup & user object creation
@@ -46,6 +49,15 @@ export default function Signup({navigation}) {
       Animated.timing(shakeAnimation, { toValue: 0, duration: 50, useNativeDriver: true }),
     ]).start();
   };
+
+  async function signUp() {
+    try {
+      await createUserWithEmailAndPassword(auth, form.email, form.password);
+      navigation.navigate('Main');
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#e8ecf4' }}>
@@ -158,7 +170,7 @@ export default function Signup({navigation}) {
                   setText(badPassword);
                   startShakeAnimation();
                 } else {
-                  navigation.navigate("Main");
+                  signUp();
                 }
               }}>
               <View style={styles.btn}>
