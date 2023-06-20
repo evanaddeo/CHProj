@@ -6,7 +6,6 @@ import FriendsPage from "./components/FriendsPage";
 import Profile from "./components/Profile";
 import Login from './components/Login';
 import Signup from './components/Signup';
-import { StyleSheet} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -15,6 +14,9 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
+/**
+ * Tab Navigator setup for the main display of the app - Initially shows Homepage.js
+ */
 function Main() {
     return (
         <Tab.Navigator
@@ -84,6 +86,9 @@ function Main() {
     );
 }
 
+/**
+ * Stack Navigator directions for initial app loading (Sign in, log in, app homepage)
+ */
 const App = () => {
     return (
         <NavigationContainer>
@@ -107,18 +112,5 @@ const App = () => {
         </NavigationContainer>
     );
 }
-
-
-const styles = StyleSheet.create({
-    container: {
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center',
-    },
-    text: {
-        fontSize:20,
-    }
-});
-
 
 export default App;

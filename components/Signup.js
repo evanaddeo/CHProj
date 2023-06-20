@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -6,12 +6,20 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Animated
 } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import firebase from "../firebase";
+import UserService from "../UserService";
 
 const INPUT_OFFSET = 110;
+const auth = getAuth();
 
+/**
+ * First page loaded for user upon opening app, allows signup & user object creation
+ * @param {navigation} : provides React navigation to/from other components onPress
+ */
 export default function Signup({navigation}) {
 
   const [form, setForm] = useState({
@@ -21,9 +29,39 @@ export default function Signup({navigation}) {
     lastname: '',
   });
 
+  const [errorText, setText] = useState("");
+
+  // Strings to feed "setText" based on each specific error category 
+  const badFirst = "Invalid first name. Please provide a first name.";
+  const badLast = "Invalid last name. Please provide a last name.";
+  const badEmail = "Invalid email. Please provide a valid email address.";
+  const badPassword = "Invalid Password. Must contain 8-18 characters and at least 1 special character.";
+  const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+
+  const shakeAnimation = useRef(new Animated.Value(0)).current;
+
+  // Shake animation method when <TextInput> values are incorrect & user presses the signup button
+  const startShakeAnimation = () => {
+    Animated.sequence([
+      Animated.timing(shakeAnimation, { toValue: 10, duration: 50, useNativeDriver: true }),
+      Animated.timing(shakeAnimation, { toValue: -10, duration: 50, useNativeDriver: true }),
+      Animated.timing(shakeAnimation, { toValue: 10, duration: 50, useNativeDriver: true }),
+      Animated.timing(shakeAnimation, { toValue: 0, duration: 50, useNativeDriver: true }),
+    ]).start();
+  };
+
+  async function signUp() {
+    try {
+      await createUserWithEmailAndPassword(auth, form.email, form.password);
+      navigation.navigate('Main');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#e8ecf4' }}>
-      <View style={styles.container}>
+      <Animated.View style={[styles.container, {transform: [{translateX: shakeAnimation}]} ]}>
         <View style={styles.topBanner}>
             <TouchableOpacity>
                 <View style={styles.top}>
@@ -112,10 +150,28 @@ export default function Signup({navigation}) {
             />
           </View>
 
+          <Text style={styles.errorText}>{errorText}</Text>
+
           <View style={styles.formAction}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("Main");
+                if (form.firstname == "") {
+                  setText(badFirst);
+                  startShakeAnimation();
+                } else if (form.lastname == "") {
+                  setText(badLast);
+                  startShakeAnimation();
+                } else if (!form.email.includes("@")) {
+                  setText(badEmail);
+                  startShakeAnimation();
+                } else if (form.password.length < 8 ||
+                           form.password.length > 18 ||
+                           !specialCharRegex.test(form.password)) {
+                  setText(badPassword);
+                  startShakeAnimation();
+                } else {
+                  signUp();
+                }
               }}>
               <View style={styles.btn}>
                 <Text style={styles.btnText}>Sign Up</Text>
@@ -143,7 +199,7 @@ export default function Signup({navigation}) {
             <Text style={{ fontWeight: '600' }}> Privacy Policy</Text>.
           </Text>
         </View>
-      </View>
+      </Animated.View>
     </SafeAreaView>
   );
 }
@@ -188,7 +244,8 @@ const styles = StyleSheet.create({
     flexBasis: 0,
   },
   formAction: {
-    marginVertical: 24,
+    marginBottom: 24,
+    marginTop: 10
   },
   formActionSpacer: {
     marginVertical: 8,
@@ -236,8 +293,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderWidth: 1,
-    backgroundColor: '#000',
+    backgroundColor: 'black',
     borderColor: '#000',
   },
   btnText: {
@@ -286,4 +342,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18
   },
+  errorText: {
+    color: "red",
+  }
 });
